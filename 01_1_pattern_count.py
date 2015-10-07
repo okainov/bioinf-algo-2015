@@ -2,7 +2,7 @@ import re
 
 
 def pattern_count(text, pattern):
-    result = re.findall('(?=%s)' % pattern, text)
+    result = re.findall('(?=%s)' % pattern, text)  # Lookahead for overlapping matches
     return len(result)
 
 if __name__ == '__main__':
