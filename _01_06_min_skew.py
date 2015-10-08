@@ -2,8 +2,7 @@ def min_skew(text):
     skew = 0
     min_skew_value = 0
     skew_indexes = list()
-    for i, c in enumerate(text):
-        i += 1
+    for i, c in enumerate(text, 1):
         if c == 'C':
             skew -= 1
         elif c == 'G':
