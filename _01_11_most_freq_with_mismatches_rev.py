@@ -1,35 +1,16 @@
-import itertools
-
 from _01_02_frequent_words import window
+from _01_03_reverse_dna import reverse_dna
 from _01_09_approx_pattern_count import approx_pattern_count
-
-
-def generate_words_with_mismatches(s, d=2):
-    # http://stackoverflow.com/questions/19822847/how-to-generate-all-strings-with-d-mismatches-python
-    N = len(s)
-    letters = 'ACGT'
-    pool = list(s)
-
-    for indices in itertools.combinations(range(N), d):
-        for replacements in itertools.product(letters, repeat=d):
-            skip = False
-            for i, a in zip(indices, replacements):
-                if pool[i] == a:
-                    skip = True
-            if skip:
-                continue
-
-            keys = dict(zip(indices, replacements))
-            yield ''.join([pool[i] if i not in indices else keys[i]
-                           for i in range(N)])
+from _01_10_most_freq_with_mismatches import generate_words_with_mismatches
 
 
 def frequent_words_with_mismatch(text, kmers, d):
     count_dict = dict()
     max_count = 0
+    visited_kmers = set()
     for kmer in kmers:
-        app = approx_pattern_count(text, kmer, d)
-        if app > 0:
+        app = approx_pattern_count(text, kmer, d) + approx_pattern_count(text, reverse_dna(kmer), d)
+        if app > 0 and kmer not in visited_kmers:
             if kmer not in count_dict:
                 count_dict[kmer] = 0
             count_dict[kmer] += app
