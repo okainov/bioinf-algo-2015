@@ -1,8 +1,8 @@
-from _02_04_cyclopeptide_gen import cyclopeptide
+from _02_04_cyclopeptide_gen import generate_cyclo_spectrum
 
 
 def score(peptide, perfect_spectrum, table):
-    actual_spectrum = cyclopeptide(peptide, table)
+    actual_spectrum = generate_cyclo_spectrum(peptide, table)
     result_score = 0
     i1 = 0
     i2 = 0

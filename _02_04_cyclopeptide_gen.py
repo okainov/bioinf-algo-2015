@@ -9,7 +9,7 @@ def weight(codon, table):
         result += table[letter]
     return result
 
-def cyclopeptide(text, table):
+def generate_cyclo_spectrum(text, table):
     n = len(text)
     text = text * 2
     codon_weights = []
@@ -21,7 +21,20 @@ def cyclopeptide(text, table):
     codon_weights.append(weight(text[:n], table))
     codon_weights.sort()
     codon_weights = map(str, codon_weights)
-    return codon_weights
+    return map(int, codon_weights)
+
+def generate_linear_spectrum(text, table):
+    n = len(text)
+    codon_weights = []
+    for i in range(1, n+1):  # length
+        for start in range(0, n-i+1):  # start position
+            codon = text[start:start + i]
+            codon_weights.append(weight(codon, table))
+    codon_weights.append(0)
+    #codon_weights.append(weight(text[:n], table))
+    codon_weights.sort()
+    codon_weights = map(str, codon_weights)
+    return map(int,codon_weights)
 
 
 if __name__ == '__main__':
@@ -33,6 +46,6 @@ if __name__ == '__main__':
             letter, w = line.split()
             w = int(w)
             table[letter] = w
-    codon_weights = cyclopeptide(text, table)
+    codon_weights = generate_cyclo_spectrum(text, table)
     with open('out.txt', 'w') as f:
         f.write(' '.join(codon_weights))
