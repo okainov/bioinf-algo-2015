@@ -9,17 +9,7 @@ def weight(codon, table):
         result += table[letter]
     return result
 
-
-if __name__ == '__main__':
-    with open('in.txt', 'r') as f:
-        text = f.readline()
-    with open('peptide_table.txt', 'r') as f:
-        table = {}
-        for line in f.readlines():
-            letter, w = line.split()
-            w = int(w)
-            table[letter] = w
-
+def cyclopeptide(text, table):
     n = len(text)
     text = text * 2
     codon_weights = []
@@ -31,5 +21,18 @@ if __name__ == '__main__':
     codon_weights.append(weight(text[:n], table))
     codon_weights.sort()
     codon_weights = map(str, codon_weights)
+    return codon_weights
+
+
+if __name__ == '__main__':
+    with open('in.txt', 'r') as f:
+        text = f.readline()
+    with open('peptide_table.txt', 'r') as f:
+        table = {}
+        for line in f.readlines():
+            letter, w = line.split()
+            w = int(w)
+            table[letter] = w
+    codon_weights = cyclopeptide(text, table)
     with open('out.txt', 'w') as f:
         f.write(' '.join(codon_weights))
