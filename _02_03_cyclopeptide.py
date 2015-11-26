@@ -2,7 +2,6 @@ import re
 import itertools
 from _01_03_reverse_dna import reverse_dna
 
-
 if __name__ == '__main__':
     with open('in.txt', 'r') as f:
         n = int(f.readline())
@@ -20,6 +19,6 @@ if __name__ == '__main__':
                 reverse_table[acid].append(gens)
         reverse_table[''].append('')
 
-    result = (n-1) * n
+    result = (n - 1) * n
     with open('out.txt', 'w') as f:
         f.write(str(result))

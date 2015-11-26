@@ -10,6 +10,7 @@ def translate_prot(text, table):
         result += table[elem]
     return result
 
+
 if __name__ == '__main__':
     with open('in.txt', 'r') as f:
         text = f.readline()
@@ -29,12 +30,12 @@ if __name__ == '__main__':
         reverse_table[''].append('')
 
     stuff = []
-    #stuff.append(reverse_table[''])
+    # stuff.append(reverse_table[''])
     for letter in pattern:
         stuff.append(reverse_table[letter])
-        #stuff.append(reverse_table[''])
+        # stuff.append(reverse_table[''])
     result = []
-    #text = text.replace('T', 'U')
+    # text = text.replace('T', 'U')
     for candidate in itertools.product(*stuff):
         string = ''.join(candidate)
         string = string.replace('U', 'T')
