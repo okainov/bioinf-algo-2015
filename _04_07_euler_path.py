@@ -11,8 +11,8 @@ if __name__ == '__main__':
     with open('in.txt', 'r') as f:
         for line in f:
             start, arrow, finish = line.split()
-            start = int(start)
-            finish_vertexes = list(map(int, finish.split(',')))
+            start = str(start)
+            finish_vertexes = list(map(str, finish.split(',')))
 
             if start not in degrees:
                 degrees[start] = len(finish_vertexes)
@@ -30,14 +30,17 @@ if __name__ == '__main__':
                 if vertex not in graph:
                     graph[vertex] = list()
 
-            graph[int(start)] = finish_vertexes
+            graph[str(start)] = finish_vertexes
 
-    start_vertex = [x for x in degrees if degrees[x] % 2 == 1][0]
-    second_vertex = [x for x in degrees if degrees[x] % 2 == 1][1]
-    if start_vertex not in graph:
-        graph[start_vertex] = list()
+    if not [x for x in degrees if degrees[x]% 2 == 1]:
+        start_vertex = '000'
+    else:
+        start_vertex = [x for x in degrees if degrees[x] % 2 == 1][0]
+        second_vertex = [x for x in degrees if degrees[x] % 2 == 1][1]
+        if start_vertex not in graph:
+            graph[start_vertex] = list()
 
-    graph[start_vertex].append(second_vertex)
+    #graph[start_vertex].append(second_vertex)
 
     stack = []
     stack.append(start_vertex)
@@ -53,14 +56,15 @@ if __name__ == '__main__':
     result = result[::-1]
     final_result = result
     print (start_vertex)
-    print (second_vertex)
-    for i in range(len(result)-1):
-        if result[i-1] == start_vertex and result[i] == second_vertex:
-            final_result = result[i:] + result[:i-1]
-            break
+    if start_vertex != '000':
+        print (second_vertex)
+        for i in range(len(result)-1):
+            if result[i-1] == start_vertex and result[i] == second_vertex:
+                final_result = result[i:] + result[:i-1]
+                break
 
 
     with open('out.txt', 'w') as f:
-        f.write('->'.join(map(str, final_result)))
+        f.write('\n'.join(map(str, final_result)))
         f.write('\n----------------------------\n')
-        f.write('->'.join(map(str, result)))
+        f.write('\n'.join(map(str, result)))

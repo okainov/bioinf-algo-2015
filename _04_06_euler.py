@@ -16,10 +16,10 @@ if __name__ == '__main__':
     with open('in.txt', 'r') as f:
         for line in f:
             start, arrow, finish = line.split()
-            graph[int(start)] = list(map(int, finish.split(',')))
+            graph[str(start)] = list(map(str, finish.split(',')))
 
     stack = []
-    stack.append(0)
+    stack.append('000')
     result = []
     while len(stack) > 0:
         v = stack[-1]
