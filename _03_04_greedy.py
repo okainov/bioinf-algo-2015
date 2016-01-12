@@ -14,6 +14,8 @@ def profile_most_probable_kmer_swap(dna, k, profile):
             most_probable = dna[i:i+k]
 
     return most_probable
+
+
 def score(motifs):
     columns = [''.join(seq) for seq in zip(*motifs)]
     max_count = sum([max([c.count(nucleotide) for nucleotide in 'ACGT']) for c in columns])
@@ -25,15 +27,15 @@ def profile(motifs):
     return [[float(col.count(nuc)) / float(len(col)) for nuc in 'ACGT'] for col in columns]
 
 
-def greedy_motif_search(dna_list, k, t):
+def greedy_motif_search(dnas, k, t):
     best_score = t*k
 
-    for i in range(len(dna_list[0])-k+1):
-        motifs = [dna_list[0][i:i+k]]
+    for i in range(len(dnas[0])-k+1):
+        motifs = [dnas[0][i:i+k]]
 
         for j in range(1, t):
             current_profile = profile(motifs)
-            motifs.append(profile_most_probable_kmer_swap(dna_list[j], k, current_profile))
+            motifs.append(profile_most_probable_kmer_swap(dnas[j], k, current_profile))
 
         current_score = score(motifs)
         if current_score < best_score:
