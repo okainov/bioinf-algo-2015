@@ -2,10 +2,11 @@ from _01_02_frequent_words import window
 
 
 def common_subst(text1, text2):
-    for k in range(min([len(text1), len(text2)]), 1, -1):
+    for k in range(1, min([len(text1), len(text2)])):
         for kmer in ["".join(x) for x in window(text1, k)]:
-            if kmer in text2:
+            if kmer not in text2:
                 return kmer
+    return None
 
 
 if __name__ == '__main__':
